@@ -6,9 +6,11 @@
 /** @type {import('jest').Config} */
 const config = {
   rootDir: "",
+  testEnvironment: "node",
   collectCoverage: true,
   coverageDirectory: "coverage",
   coverageReporters: ["json", "html", "lcov"],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
 };
 
 module.exports = config;

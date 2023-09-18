@@ -46,7 +46,7 @@ export default class TaskRepository {
       .returning("*")
       .update(data)
       .where({ id });
-
+      
     return TaskMapper.mapToDTO(result);
   }
 

@@ -31,7 +31,7 @@ export class TaskService {
 
   async update(id, { name, description }) {
     await this.findById(id);
-    return this.updateById(id, { name, description });
+    return await this.updateById(id, { name, description });
   }
 
   async updateById(id, data) {
