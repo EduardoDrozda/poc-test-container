@@ -1,4 +1,5 @@
 import knexInstance from "../../database/knex";
+import { TaskMapper } from "./task.mapper";
 
 const TABLE_NAME = "tasks";
 
@@ -8,7 +9,7 @@ export default class TaskRepository {
   }
 
   async findAll(filters = {}) {
-    return this.database.modify(function (queryBuilder) {
+    const tasks = await this.database.modify(function (queryBuilder) {
       const { isDone, search } = filters;
 
       if (isDone !== undefined && isDone !== null) {
@@ -21,20 +22,23 @@ export default class TaskRepository {
           .orWhereRaw("LOWER(description) LIKE ?", [`%${search}%`]);
       }
     });
+
+    return tasks.map((task) => TaskMapper.mapToDTO(task));
   }
 
   async findById(id) {
     const [result] = await this.database.where({ id });
 
-    return result;
+    return TaskMapper.mapToDTO(result);
   }
 
-  async create({ name, description, isDone }) {
+  async create({ name, description }) {
     const [result] = await knexInstance
       .table(TABLE_NAME)
       .returning("*")
       .insert({ name, description });
-    return result;
+
+    return TaskMapper.mapToDTO(result);
   }
 
   async updateById(id, data) {
@@ -42,7 +46,8 @@ export default class TaskRepository {
       .returning("*")
       .update(data)
       .where({ id });
-    return result;
+
+    return TaskMapper.mapToDTO(result);
   }
 
   async delete(id) {
