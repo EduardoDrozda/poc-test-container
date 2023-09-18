@@ -1,0 +1,41 @@
+## TASKS ##
+
+curl -X POST http://localhost:3333/api/tasks
+  -H 'Content-Type: application/json'
+  -H 'Accept: application/json'
+  -d '{
+    "name": "Mock Task", 
+    "description": "Mock description"
+    }'
+
+###
+
+curl -X GET http://localhost:3333/api/tasks
+  -H 'Content-Type: application/json'
+  -H 'Accept: application/json'
+  
+###
+
+curl -X GET http://localhost:3333/api/tasks/4aa5b928-daf1-4dca-99dc-62b942c6d3f6
+  -H 'Content-Type: application/json'
+  -H 'Accept: application/json'
+  
+###
+
+curl -X PATCH  http://localhost:3333/api/tasks/4aa5b928-daf1-4dca-99dc-62b942c6d3f6
+  -H 'Content-Type: application/json'
+  -H 'Accept: application/json'
+  -d '{
+      "name": "Mock Updated", 
+      "description": "Mock description updated"
+    }'
+###
+
+
+curl -X PATCH  http://localhost:3333/api/tasks/4aa5b928-daf1-4dca-99dc-62b942c6d3f6/finish
+  -H 'Content-Type: application/json'
+  -H 'Accept: application/json'
+  -d '{
+      "isDone": false
+    }'
+###

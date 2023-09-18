@@ -1,0 +1,6 @@
+{
+  "execMap": {
+    "js": "babel-node ./src/index.js",
+    "hbs": "babel-node ./src/index.js"
+  }
+}
